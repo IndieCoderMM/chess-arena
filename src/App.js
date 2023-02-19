@@ -1,9 +1,9 @@
-import ChessBoard from './features/chess-game/components/Chessboard';
+import Chess from './features/chess-game/index.js';
 
 function App() {
   return (
     <div className="App">
-      <ChessBoard />
+      <Chess />
     </div>
   );
 }

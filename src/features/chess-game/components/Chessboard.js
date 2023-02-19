@@ -1,43 +1,38 @@
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ChessBoardJsx from 'chessboardjsx';
+import styles from './Chessboard.module.css';
+import getHighlightStyle from '../utils/getHighlightStyle';
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Chess } from 'chess.js';
-
-function Chessboard() {
-  const game = useRef(null);
-  const [fen, setFen] = useState('start');
+function Chessboard({ game, updateStatus }) {
+  const startingPosition = useSelector((state) => state.chess.fen);
+  const [fen, setFen] = useState(startingPosition);
   const [selected, setSelected] = useState('');
   const [validMoves, setValidMoves] = useState([]);
 
-  useEffect(() => {
-    game.current = new Chess();
-  }, []);
-
   const makeMove = ({ sourceSquare, targetSquare }) => {
     try {
-      console.log(game.current.moves());
-      const move = game.current.move({
+      const move = game.move({
         from: sourceSquare,
         to: targetSquare,
       });
       if (!move) return;
-      setFen(game.current.fen());
+      setFen(game.fen());
+      updateStatus(game.turn(), game.history());
     } catch (err) {
-      console.log('Invalid move!');
+      console.log('Invalid move!', err);
     }
   };
-  const highlightStyle = {
-    backgroundColor: 'rgba(255,235,59,0.5)',
-  };
+
   const handleMove = (square) => {
     if (validMoves.includes?.(square)) {
       makeMove({ sourceSquare: selected, targetSquare: square });
       setValidMoves([]);
       setSelected('');
     } else {
-      const piece = game.current.get(square);
+      const piece = game.get(square);
       if (piece) {
-        const legalMoves = game.current.moves({ square });
+        const legalMoves = game.moves({ square });
         const legalSquares = legalMoves.map((m) =>
           m.length > 2 ? m.slice(m.length - 2) : m,
         );
@@ -47,14 +42,11 @@ function Chessboard() {
     }
   };
 
-  const highlighter = {
-    ...validMoves.reduce?.((obj, i) => ({ ...obj, [i]: highlightStyle }), {}),
-    [selected]: { backgroundColor: 'pink' },
-  };
+  const highlighter = getHighlightStyle(validMoves, selected);
 
   return (
-    <div>
-      {game.current && game.current.isGameOver() && <h1>Game Over!</h1>}
+    <div className={styles.container}>
+      {game && game.isGameOver() && <h1>Game Over!</h1>}
       <ChessBoardJsx
         position={fen}
         onDrop={makeMove}
