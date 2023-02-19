@@ -1,4 +1,4 @@
-import ChessBoard from './features/chessboard/Chessboard';
+import ChessBoard from './features/chess-game/components/Chessboard';
 
 function App() {
   return (
