@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.25em;
+  border: solid 1px goldenrod;
+  background-color: #272727;
+}
+
+.icon {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: cornflowerblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  color: #fff;
+  box-sizing: border-box;
+  border: solid 3px rebeccapurple;
+}
+
+.icon.active {
+  border-color: green;
+}
+
+.clock {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fff;
+  padding: 0.5rem;
+}

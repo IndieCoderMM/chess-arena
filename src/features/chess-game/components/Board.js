@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Chess } from 'chess.js';
 import { Chessboard } from 'react-chessboard';
-import styles from './Chessboard.module.css';
+import styles from './Board.module.css';
 import getHighlightStyle from '../utils/getHighlightStyle';
 import parseSquares from '../utils/parseSquares';
-import { Chess } from 'chess.js';
 
 function Board({ updateStatus }) {
-  const startingPosition = useSelector((state) => state.chess.fen);
   const [game] = useState(new Chess());
+  const startingPosition = useSelector((state) => state.chess.fen);
   const [fen, setFen] = useState(startingPosition);
   const [selected, setSelected] = useState('');
   const [validMoves, setValidMoves] = useState([]);
@@ -23,7 +23,6 @@ function Board({ updateStatus }) {
       if (!move) return;
       setFen(game.fen());
       updateStatus(game.turn(), game.history());
-      console.log(game.moves());
     } catch (err) {
       console.log('Invalid move!', err);
     }
