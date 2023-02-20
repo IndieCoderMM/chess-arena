@@ -4,7 +4,12 @@
   align-items: center;
   margin: 0.25em;
   border: solid 1px goldenrod;
-  background-color: #272727;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
 }
 
 .icon {
@@ -29,6 +34,5 @@
 .clock {
   font-size: 1.5em;
   font-weight: bold;
-  color: #fff;
   padding: 0.5rem;
 }

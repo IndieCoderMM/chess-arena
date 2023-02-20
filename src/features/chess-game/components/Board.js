@@ -22,7 +22,12 @@ function Board({ updateStatus }) {
       });
       if (!move) return;
       setFen(game.fen());
-      updateStatus(game.turn(), game.history());
+      const status = game.isCheckmate()
+        ? 'lose'
+        : game.inCheck()
+        ? 'inCheck'
+        : 'idle';
+      updateStatus({ [game.turn()]: status });
     } catch (err) {
       console.log('Invalid move!', err);
     }
@@ -48,13 +53,12 @@ function Board({ updateStatus }) {
 
   return (
     <div className={styles.container}>
-      {game && game.isGameOver() && <h1>Game Over!</h1>}
       <Chessboard
         position={fen}
-        onDrop={makeMove}
         onSquareClick={handleMove}
         customSquareStyles={highlighter}
         boardWidth={400}
+        arePiecesDraggable={false}
       />
     </div>
   );

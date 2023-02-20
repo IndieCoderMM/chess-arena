@@ -1,6 +1,8 @@
 function convertMoveToSquare(move) {
   // Pawn moves (e4, c5)
   if (move.length === 2) return move;
+  // Removing # from checkmates
+  if (move.endsWith('#')) move = move.slice(0, move.length - 1);
   if (move.length === 3) {
     // Pawn Checks (e7+, f2+)
     if (move.includes('+')) return move.slice(0, 2);
