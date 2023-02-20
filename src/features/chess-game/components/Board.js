@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import ChessBoardJsx from 'chessboardjsx';
+import { Chessboard } from 'react-chessboard';
 import styles from './Chessboard.module.css';
 import getHighlightStyle from '../utils/getHighlightStyle';
+import parseSquares from '../utils/parseSquares';
+import { Chess } from 'chess.js';
 
-function Chessboard({ game, updateStatus }) {
+function Board({ updateStatus }) {
   const startingPosition = useSelector((state) => state.chess.fen);
+  const [game] = useState(new Chess());
   const [fen, setFen] = useState(startingPosition);
   const [selected, setSelected] = useState('');
   const [validMoves, setValidMoves] = useState([]);
@@ -15,10 +18,12 @@ function Chessboard({ game, updateStatus }) {
       const move = game.move({
         from: sourceSquare,
         to: targetSquare,
+        promotion: 'q',
       });
       if (!move) return;
       setFen(game.fen());
       updateStatus(game.turn(), game.history());
+      console.log(game.moves());
     } catch (err) {
       console.log('Invalid move!', err);
     }
@@ -33,9 +38,7 @@ function Chessboard({ game, updateStatus }) {
       const piece = game.get(square);
       if (piece) {
         const legalMoves = game.moves({ square });
-        const legalSquares = legalMoves.map((m) =>
-          m.length > 2 ? m.slice(m.length - 2) : m,
-        );
+        const legalSquares = parseSquares(legalMoves);
         setSelected(square);
         setValidMoves(legalSquares);
       }
@@ -47,14 +50,15 @@ function Chessboard({ game, updateStatus }) {
   return (
     <div className={styles.container}>
       {game && game.isGameOver() && <h1>Game Over!</h1>}
-      <ChessBoardJsx
+      <Chessboard
         position={fen}
         onDrop={makeMove}
         onSquareClick={handleMove}
-        squareStyles={highlighter}
+        customSquareStyles={highlighter}
+        boardWidth={400}
       />
     </div>
   );
 }
 
-export default Chessboard;
+export default Board;
