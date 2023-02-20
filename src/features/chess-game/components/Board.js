@@ -5,6 +5,7 @@ import { Chessboard } from 'react-chessboard';
 import styles from './Board.module.css';
 import getHighlightStyle from '../utils/getHighlightStyle';
 import parseSquares from '../utils/parseSquares';
+import evaluateFen from '../utils/evaluateFen';
 
 function Board({ updateStatus }) {
   const [game] = useState(new Chess());
@@ -27,7 +28,8 @@ function Board({ updateStatus }) {
         : game.inCheck()
         ? 'inCheck'
         : 'idle';
-      updateStatus({ [game.turn()]: status });
+      const result = evaluateFen(game.fen());
+      updateStatus({ [game.turn()]: status }, result);
     } catch (err) {
       console.log('Invalid move!', err);
     }
