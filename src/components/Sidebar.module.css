@@ -1,0 +1,48 @@
+.container {
+  min-height: 100vh;
+  background-color: #272727;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.brand {
+  color: darkgreen;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin: 0;
+}
+
+.menuBtn {
+  background: none;
+  border: none;
+  font-size: 2em;
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.navLink {
+  padding: 1rem 2rem;
+  display: flex;
+  text-decoration: none;
+  font-size: 1.2em;
+  transition: all 0.2s;
+}
+
+.navLink:hover {
+  background-color: chartreuse;
+  color: #272727;
+}
+
+.hide {
+  display: none;
+}
