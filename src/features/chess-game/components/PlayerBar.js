@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './PlayerBar.module.css';
 
-const PlayerBar = ({ name, color, state }) => {
+const PlayerBar = ({ name, color, state, time }) => {
   const turn = Object.keys(state)[0];
   const status = Object.values(state)[0];
   const message =
@@ -18,7 +18,7 @@ const PlayerBar = ({ name, color, state }) => {
         <h3>{name}</h3>
       </div>
       {turn !== color && message && <p>{message.toUpperCase()}</p>}
-      <div className={styles.clock}>09:52</div>
+      <div className={styles.clock}>{time}:00</div>
     </div>
   );
 };

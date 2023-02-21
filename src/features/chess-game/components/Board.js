@@ -7,7 +7,7 @@ import getHighlightStyle from '../utils/getHighlightStyle';
 import parseSquares from '../utils/parseSquares';
 import evaluateFen from '../utils/evaluateFen';
 
-function Board({ updateStatus }) {
+function Board({ updateStatus, orientation, width }) {
   const [game] = useState(new Chess());
   const startingPosition = useSelector((state) => state.chess.fen);
   const [fen, setFen] = useState(startingPosition);
@@ -59,8 +59,9 @@ function Board({ updateStatus }) {
         position={fen}
         onSquareClick={handleMove}
         customSquareStyles={highlighter}
-        boardWidth={400}
+        boardWidth={width}
         arePiecesDraggable={false}
+        boardOrientation={orientation}
       />
     </div>
   );
