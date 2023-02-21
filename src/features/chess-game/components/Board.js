@@ -29,7 +29,7 @@ function Board({ updateStatus, orientation, width }) {
         ? 'inCheck'
         : 'idle';
       const result = evaluateFen(game.fen());
-      updateStatus({ [game.turn()]: status }, result);
+      updateStatus({ [game.turn()]: status }, game.history(), result);
     } catch (err) {
       console.log('Invalid move!', err);
     }

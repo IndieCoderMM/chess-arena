@@ -9,7 +9,6 @@ const VALUES = {
 
 export default function evaluateFen(fen) {
   let evalResult = 0;
-  console.log(fen);
   for (const c of fen.split(' ')[0]) {
     if ('pbrnqk'.includes(c.toLowerCase())) {
       if (c === c.toLowerCase()) {
@@ -19,6 +18,5 @@ export default function evaluateFen(fen) {
       }
     }
   }
-  console.log(evalResult);
   return evalResult;
 }
