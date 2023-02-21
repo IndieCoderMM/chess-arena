@@ -1,17 +1,3 @@
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0.25em;
-  border: solid 1px goldenrod;
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  gap: 0.25em;
-}
-
 .icon {
   width: 3em;
   height: 3em;

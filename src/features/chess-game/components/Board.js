@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Chess } from 'chess.js';
 import { Chessboard } from 'react-chessboard';
 import styles from './Board.module.css';
 import getHighlightStyle from '../utils/getHighlightStyle';
 import parseSquares from '../utils/parseSquares';
 import evaluateFen from '../utils/evaluateFen';
+import { addMoves } from '../../../redux/chess/chessSlice';
 
 function Board({ updateStatus, orientation, width }) {
-  const [game] = useState(new Chess());
   const startingPosition = useSelector((state) => state.chess.fen);
+  const dispatch = useDispatch();
+  const [game] = useState(new Chess());
   const [fen, setFen] = useState(startingPosition);
   const [selected, setSelected] = useState('');
   const [validMoves, setValidMoves] = useState([]);
@@ -23,13 +25,14 @@ function Board({ updateStatus, orientation, width }) {
       });
       if (!move) return;
       setFen(game.fen());
+      const evalResult = evaluateFen(game.fen());
       const status = game.isCheckmate()
         ? 'lose'
         : game.inCheck()
         ? 'inCheck'
         : 'idle';
-      const result = evaluateFen(game.fen());
-      updateStatus({ [game.turn()]: status }, game.history(), result);
+      updateStatus({ [game.turn()]: status }, evalResult);
+      dispatch(addMoves(game.history()));
     } catch (err) {
       console.log('Invalid move!', err);
     }

@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   fen: 'start',
+  moves: [],
+  status: 'idle',
 };
 
 const chessSlice = createSlice({
@@ -9,11 +11,14 @@ const chessSlice = createSlice({
   initialState,
   reducers: {
     updateBoard(state, action) {
-      return { ...state, ...action.payload };
+      state.fen = action.payload;
+    },
+    addMoves(state, action) {
+      state.moves = action.payload;
     },
   },
 });
 
-export const { updateBoard } = chessSlice.actions;
+export const { updateBoard, addMoves } = chessSlice.actions;
 
 export default chessSlice.reducer;
