@@ -1,4 +1,4 @@
-function convertMoveToSquare(move) {
+export function convertMoveToSquare(move) {
   // Pawn moves (e4, c5)
   if (move.length === 2) return move;
   // Removing # from checkmates

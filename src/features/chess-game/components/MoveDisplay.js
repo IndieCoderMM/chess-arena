@@ -8,8 +8,8 @@ const MoveDisplay = () => {
   const moves = useSelector((state) => state.chess.moves);
   const movePairs = pairMoves(moves);
   return (
-    <div className="border">
-      <h3>Moves({movePairs.length})</h3>
+    <div className={styles.card}>
+      <header>Moves({movePairs.length})</header>
       <div className={styles.container}>
         {movePairs.map((m, i) => (
           <Badge key={m}>

@@ -17,7 +17,7 @@ const ChessGame = ({ white, black, showStatus, orientation, width, time }) => {
   const flip = orientation === 'black';
 
   return (
-    <div className="border bg-secondary">
+    <div>
       <Stack direction="horizontal" gap={2}>
         <Stack className="align-items-center">
           {showStatus && (
