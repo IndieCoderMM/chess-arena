@@ -5,7 +5,7 @@ import pairMoves from '../utils/pairMoves';
 import styles from './MoveDisplay.module.css';
 
 const MoveDisplay = () => {
-  const moves = useSelector((state) => state.chess.moves);
+  const moves = useSelector((state) => state.board.moves);
   const movePairs = pairMoves(moves);
   return (
     <div className={styles.card}>

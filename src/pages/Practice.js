@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
-import React, { useState } from 'react';
-import Chessboard from '../features/chess-game/index';
+import React, { useEffect, useState } from 'react';
+import ChessGame from '../features/chess-game';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,7 +8,7 @@ import Stack from 'react-bootstrap/Stack';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import MoveDisplay from '../features/chess-game/components/MoveDisplay';
 import { useDispatch } from 'react-redux';
-import { updateCommand } from '../redux/chess/chessSlice';
+import { updateCommand } from '../redux/board/boardSlice';
 
 const Practice = () => {
   const [flip, setFlip] = useState(false);
@@ -17,6 +17,11 @@ const Practice = () => {
   const resetBoard = () => {
     dispatch(updateCommand('reset'));
   };
+
+  // Reset Board on load
+  useEffect(() => {
+    dispatch(updateCommand('reset'));
+  }, [dispatch]);
 
   const undoMove = () => {
     dispatch(updateCommand('undo'));
@@ -31,7 +36,7 @@ const Practice = () => {
       <Row className="p-2">
         <Col>
           <Stack gap={1}>
-            <Chessboard orientation={flip ? 'black' : 'white'} width={450} />
+            <ChessGame orientation={flip ? 'black' : 'white'} width={450} />
             <ButtonGroup>
               <Button type="button" onClick={() => setFlip((o) => !o)}>
                 Flip Board

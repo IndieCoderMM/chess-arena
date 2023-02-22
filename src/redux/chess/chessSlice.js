@@ -1,28 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import ChessService from '../../services/ChessService';
+
+export const getTodayPuzzle = createAsyncThunk('chess/getPuzzle', async () => {
+  const res = await ChessService.getDailyPuzzle();
+  console.log(res.data);
+  return res.data;
+});
 
 const initialState = {
-  fen: 'start',
-  moves: [],
-  status: 'idle',
-  command: '',
+  puzzleStatus: 'idle',
+  puzzleData: null,
 };
 
 const chessSlice = createSlice({
   name: 'chess',
   initialState,
-  reducers: {
-    updateFen(state, action) {
-      state.fen = action.payload;
-    },
-    updateMoves(state, action) {
-      state.moves = action.payload;
-    },
-    updateCommand(state, action) {
-      state.command = action.payload;
-    },
+  extraReducers(builder) {
+    builder.addCase(getTodayPuzzle.fulfilled, (state, action) => {
+      state.puzzleData = action.payload;
+      state.puzzleStatus = 'success';
+    });
   },
 });
-
-export const { updateFen, updateMoves, updateCommand } = chessSlice.actions;
 
 export default chessSlice.reducer;

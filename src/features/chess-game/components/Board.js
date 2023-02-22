@@ -10,11 +10,11 @@ import {
   updateMoves,
   updateFen,
   updateCommand,
-} from '../../../redux/chess/chessSlice';
+} from '../../../redux/board/boardSlice';
 
 function Board({ updateStatus, orientation, width }) {
-  const fen = useSelector((state) => state.chess.fen);
-  const command = useSelector((state) => state.chess.command);
+  const fen = useSelector((state) => state.board.fen);
+  const command = useSelector((state) => state.board.command);
   const dispatch = useDispatch();
   const [game] = useState(new Chess());
   const [selected, setSelected] = useState('');
