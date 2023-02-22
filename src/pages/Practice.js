@@ -18,14 +18,14 @@ const Practice = () => {
     dispatch(updateCommand('reset'));
   };
 
+  const undoMove = () => {
+    dispatch(updateCommand('undo'));
+  };
   // Reset Board on load
   useEffect(() => {
     dispatch(updateCommand('reset'));
   }, [dispatch]);
 
-  const undoMove = () => {
-    dispatch(updateCommand('undo'));
-  };
   return (
     <Container>
       <h2>Practice Mode</h2>

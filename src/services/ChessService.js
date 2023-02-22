@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-const getDailyPuzzle = () => axios.get('https://api.chess.com/pub/puzzle');
+const BASE_URL = 'https://api.chess.com/pub';
 
-const Service = { getDailyPuzzle };
+const getDailyPuzzle = () => axios.get(BASE_URL + '/puzzle');
+
+const getLeaderboards = () => axios.get(BASE_URL + '/leaderboards');
+
+const Service = { getDailyPuzzle, getLeaderboards };
 
 export default Service;

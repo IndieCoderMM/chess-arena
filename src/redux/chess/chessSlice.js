@@ -7,19 +7,35 @@ export const getTodayPuzzle = createAsyncThunk('chess/getPuzzle', async () => {
   return res.data;
 });
 
+export const getTopPlayers = createAsyncThunk(
+  'chess/getTopPlayers',
+  async () => {
+    const res = await ChessService.getLeaderboards();
+    const { live_blitz } = res.data;
+    return live_blitz.slice(0, 20);
+  },
+);
+
 const initialState = {
   puzzleStatus: 'idle',
   puzzleData: null,
+  leaderboardStatus: 'idle',
+  leaderboardData: [],
 };
 
 const chessSlice = createSlice({
   name: 'chess',
   initialState,
   extraReducers(builder) {
-    builder.addCase(getTodayPuzzle.fulfilled, (state, action) => {
-      state.puzzleData = action.payload;
-      state.puzzleStatus = 'success';
-    });
+    builder
+      .addCase(getTodayPuzzle.fulfilled, (state, action) => {
+        state.puzzleData = action.payload;
+        state.puzzleStatus = 'success';
+      })
+      .addCase(getTopPlayers.fulfilled, (state, action) => {
+        state.leaderboardStatus = 'success';
+        state.leaderboardData = action.payload;
+      });
   },
 });
 
