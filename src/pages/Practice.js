@@ -1,14 +1,15 @@
 import Button from 'react-bootstrap/Button';
 import React, { useEffect, useState } from 'react';
-import ChessGame from '../features/chess-game';
+import { useDispatch } from 'react-redux';
+
+import ChessGame, { MoveDisplay } from '../features/chess-game';
+import { updateCommand } from '../redux/board/boardSlice';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import MoveDisplay from '../features/chess-game/components/MoveDisplay';
-import { useDispatch } from 'react-redux';
-import { updateCommand } from '../redux/board/boardSlice';
 
 const Practice = () => {
   const [flip, setFlip] = useState(false);

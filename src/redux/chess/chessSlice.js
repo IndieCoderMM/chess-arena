@@ -26,6 +26,11 @@ const initialState = {
 const chessSlice = createSlice({
   name: 'chess',
   initialState,
+  reducers: {
+    solvePuzzle(state, action) {
+      state.puzzleStatus = 'solved';
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getTodayPuzzle.fulfilled, (state, action) => {
@@ -38,5 +43,7 @@ const chessSlice = createSlice({
       });
   },
 });
+
+export const { solvePuzzle } = chessSlice.actions;
 
 export default chessSlice.reducer;

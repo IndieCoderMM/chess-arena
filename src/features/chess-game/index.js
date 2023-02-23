@@ -4,14 +4,14 @@ import Stack from 'react-bootstrap/Stack';
 import Chessboard from './components/Board';
 import EvalBar from './components/EvalBar';
 import PlayerBar from './components/PlayerBar';
+import { useSelector } from 'react-redux';
 
 const ChessGame = ({ white, black, showStatus, orientation, width, time }) => {
   const [state, setState] = useState({ w: 'idle' });
-  const [evalResult, setEvalResult] = useState(0);
+  const score = useSelector((state) => state.board.score);
 
-  const updateStatus = (newState, result) => {
+  const updateStatus = (newState) => {
     setState(newState);
-    setEvalResult(result);
   };
 
   const flip = orientation === 'black';
@@ -42,7 +42,7 @@ const ChessGame = ({ white, black, showStatus, orientation, width, time }) => {
             />
           )}
         </Stack>
-        <EvalBar score={evalResult} size={width - 100} />
+        <EvalBar score={score} size={width - 100} />
       </Stack>
     </div>
   );
@@ -59,9 +59,11 @@ ChessGame.propTypes = {
   showStatus: PropTypes.bool,
   flip: PropTypes.bool,
   time: PropTypes.number,
+  orientation: PropTypes.string,
 };
 
 ChessGame.defaultProps = {
+  orientation: 'white',
   showStatus: false,
   time: 10,
   flip: false,
@@ -77,3 +79,5 @@ ChessGame.defaultProps = {
 };
 
 export default ChessGame;
+export { default as MoveDisplay } from './components/MoveDisplay';
+export { default as PuzzleValidator } from './components/PuzzleValidator';

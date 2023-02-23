@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import ChessGame, { PuzzleValidator } from '../features/chess-game';
 import { getTodayPuzzle } from '../redux/chess/chessSlice';
-import ChessGame from '../features/chess-game';
 import { updateCommand, updateFen } from '../redux/board/boardSlice';
+
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -22,6 +23,7 @@ const Puzzle = () => {
   // Get puzzle from API
   useEffect(() => {
     if (status === 'idle') dispatch(getTodayPuzzle());
+    if (status === 'solved') setSolving(false);
   }, [status, dispatch]);
 
   // Reset Board on load
@@ -30,7 +32,7 @@ const Puzzle = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!timeStamp) return;
+    if (!timeStamp && !solving) return;
     if (timeRef.current) clearInterval(timeRef.current);
     const timePassed = () => {
       const total = Date.parse(new Date()) - Date.parse(timeStamp);
@@ -43,11 +45,10 @@ const Puzzle = () => {
       setClock(minutes + ':' + seconds);
     }, 1000);
     timeRef.current = id;
-  }, [timeStamp]);
+  }, [timeStamp, solving]);
 
   const startPuzzle = () => {
-    const { fen } = puzzle;
-    dispatch(updateFen(fen));
+    dispatch(updateFen(puzzle.fen));
     setSolving(true);
     setTimestamp(new Date());
   };
@@ -67,6 +68,7 @@ const Puzzle = () => {
         </Card.Body>
       </Card>
       <ChessGame />
+      <PuzzleValidator />
     </Container>
   );
 };

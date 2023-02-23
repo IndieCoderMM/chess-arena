@@ -6,14 +6,11 @@ import styles from './Board.module.css';
 import getHighlightStyle from '../utils/getHighlightStyle';
 import parseSquares, { convertMoveToSquare } from '../utils/parseSquares';
 import evaluateFen from '../utils/evaluateFen';
-import {
-  updateMoves,
-  updateFen,
-  updateCommand,
-} from '../../../redux/board/boardSlice';
+import { updateCommand, updateBoard } from '../../../redux/board/boardSlice';
 
 function Board({ updateStatus, orientation, width }) {
   const fen = useSelector((state) => state.board.fen);
+  const moves = useSelector((state) => state.board.moves);
   const command = useSelector((state) => state.board.command);
   const dispatch = useDispatch();
   const [game] = useState(new Chess());
@@ -29,8 +26,7 @@ function Board({ updateStatus, orientation, width }) {
       setSelected('');
       setMoveFrom('');
       setValidMoves([]);
-      dispatch(updateFen('start'));
-      dispatch(updateMoves([]));
+      dispatch(updateBoard({ fen: 'start', moves: [] }));
     } else if (command === 'undo') {
       const undo = game.undo();
       if (undo) {
@@ -39,12 +35,12 @@ function Board({ updateStatus, orientation, width }) {
         if (moves.length) setMoveFrom(convertMoveToSquare(moves.at(-1)));
         else setMoveFrom('');
         setValidMoves([]);
-        dispatch(updateFen(game.fen()));
-        dispatch(updateMoves(moves));
+        dispatch(updateBoard({ fen: game.fen(), moves }));
       }
     }
+
     dispatch(updateCommand(''));
-  }, [command, dispatch, game]);
+  }, [command, moves, updateStatus, dispatch, game]);
 
   const makeMove = ({ sourceSquare, targetSquare }) => {
     try {
@@ -54,15 +50,21 @@ function Board({ updateStatus, orientation, width }) {
         promotion: 'q',
       });
       if (!move) return;
-      const evalResult = evaluateFen(game.fen());
+      const score = evaluateFen(game.fen());
       const status = game.isCheckmate()
         ? 'lose'
         : game.inCheck()
         ? 'inCheck'
         : 'idle';
-      updateStatus({ [game.turn()]: status }, evalResult);
-      dispatch(updateFen(game.fen()));
-      dispatch(updateMoves(game.history()));
+      updateStatus({ [game.turn()]: status });
+      dispatch(
+        updateBoard({
+          fen: game.fen(),
+          moves: game.history(),
+          score,
+          status,
+        }),
+      );
     } catch (err) {
       console.log('Invalid move!', err);
     }
