@@ -75,4 +75,3 @@ ChessGame.defaultProps = {
 
 export default ChessGame;
 export { default as MoveDisplay } from './components/MoveDisplay';
-export { default as PuzzleValidator } from './components/PuzzleValidator';

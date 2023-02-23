@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeMove } from '../../../redux/board/boardSlice';
-import { solvePuzzle } from '../../../redux/chess/chessSlice';
+// import { makeMove } from '../../../redux/board/boardSlice';
+import { changePuzzleStatus } from '../../../redux/chess/chessSlice';
 import getPuzzleSteps from '../utils/getPuzzleSteps';
 
 const PuzzleValidator = () => {
@@ -27,7 +27,7 @@ const PuzzleValidator = () => {
   useEffect(() => {
     if (status !== 'solved' && puzzle) {
       const validation = validateSolution(moves, getPuzzleSteps(puzzle.pgn));
-      if (validation) dispatch(solvePuzzle());
+      if (validation) dispatch(changePuzzleStatus('solved'));
     }
   }, [status, moves, dispatch, puzzle]);
 
