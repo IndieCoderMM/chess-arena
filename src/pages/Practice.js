@@ -37,7 +37,11 @@ const Practice = () => {
       <Row className="p-2">
         <Col>
           <Stack gap={1}>
-            <ChessGame orientation={flip ? 'black' : 'white'} width={450} />
+            <ChessGame
+              showStatus
+              orientation={flip ? 'black' : 'white'}
+              width={450}
+            />
             <ButtonGroup>
               <Button type="button" onClick={() => setFlip((o) => !o)}>
                 Flip Board

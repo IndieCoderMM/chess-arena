@@ -1,10 +1,15 @@
 import React from 'react';
 import Stack from 'react-bootstrap/Stack';
+import { useSelector } from 'react-redux';
 import styles from './PlayerBar.module.css';
 
-const PlayerBar = ({ name, color, state, time }) => {
-  const turn = Object.keys(state)[0];
-  const status = Object.values(state)[0];
+const PlayerBar = ({ color, state, time }) => {
+  const fen = useSelector((state) => state.board.fen);
+  const players = useSelector((state) => state.board.players);
+  const status = useSelector((state) => state.board.status);
+
+  const name = players[color].name;
+  const turn = fen === 'start' ? 'w' : fen.split(' ')[1];
   const message =
     status === 'lose' ? 'Checkmate!' : status === 'inCheck' ? 'Checked!' : '';
   return (

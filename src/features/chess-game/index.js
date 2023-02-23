@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Stack from 'react-bootstrap/Stack';
 import Chessboard from './components/Board';
 import EvalBar from './components/EvalBar';
 import PlayerBar from './components/PlayerBar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPlayers } from '../../redux/board/boardSlice';
 
 const ChessGame = ({ white, black, showStatus, orientation, width, time }) => {
   const [state, setState] = useState({ w: 'idle' });
   const score = useSelector((state) => state.board.score);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(createPlayers({ w: white, b: black }));
+  }, [dispatch, white, black]);
 
   const updateStatus = (newState) => {
     setState(newState);
@@ -21,12 +26,7 @@ const ChessGame = ({ white, black, showStatus, orientation, width, time }) => {
       <Stack direction="horizontal" gap={2}>
         <Stack className="align-items-center">
           {showStatus && (
-            <PlayerBar
-              name={flip ? white.name : black.name}
-              color={flip ? 'w' : 'b'}
-              state={state}
-              time={time}
-            />
+            <PlayerBar color={flip ? 'w' : 'b'} state={state} time={time} />
           )}
           <Chessboard
             updateStatus={updateStatus}
@@ -34,12 +34,7 @@ const ChessGame = ({ white, black, showStatus, orientation, width, time }) => {
             width={width}
           />
           {showStatus && (
-            <PlayerBar
-              name={flip ? black.name : white.name}
-              color={flip ? 'b' : 'w'}
-              state={state}
-              time={time}
-            />
+            <PlayerBar color={flip ? 'b' : 'w'} state={state} time={time} />
           )}
         </Stack>
         <EvalBar score={score} size={width - 100} />

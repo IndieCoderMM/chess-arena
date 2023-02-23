@@ -56,7 +56,6 @@ function Board({ updateStatus, orientation, width }) {
         : game.inCheck()
         ? 'inCheck'
         : 'idle';
-      updateStatus({ [game.turn()]: status });
       dispatch(
         updateBoard({
           fen: game.fen(),

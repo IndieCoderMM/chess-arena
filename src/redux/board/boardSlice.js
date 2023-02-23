@@ -3,8 +3,17 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   fen: 'start',
   moves: [],
+  players: {
+    w: {
+      name: '',
+      rating: 0,
+    },
+    b: {
+      name: '',
+      rating: 0,
+    },
+  },
   status: 'idle',
-  turn: '',
   score: 0,
   command: '',
 };
@@ -18,7 +27,6 @@ const boardSlice = createSlice({
     },
     updateFen(state, action) {
       state.fen = action.payload;
-      state.turn = state.fen === 'start' ? 'w' : state.fen.split(' ')[1];
     },
     updateMoves(state, action) {
       state.moves = action.payload;
@@ -28,6 +36,9 @@ const boardSlice = createSlice({
     },
     updateCommand(state, action) {
       state.command = action.payload;
+    },
+    createPlayers(state, action) {
+      state.players = action.payload;
     },
     makeMove(state, action) {
       state.command = 'move';
@@ -39,10 +50,9 @@ const boardSlice = createSlice({
 export const {
   updateBoard,
   updateFen,
-  updateMoves,
   updateCommand,
-  updateScore,
   makeMove,
+  createPlayers,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;

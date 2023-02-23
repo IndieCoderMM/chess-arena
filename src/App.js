@@ -5,7 +5,7 @@ import Leaderboard from './pages/Leaderboard.js';
 import PlayAI from './pages/PlayAI.js';
 import PlayOnline from './pages/PlayOnline.js';
 import Practice from './pages/Practice.js';
-import Puzzle from './pages/Puzzle.js';
+import Puzzle from './pages/Puzzle';
 
 function App() {
   return (
