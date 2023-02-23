@@ -1,7 +1,12 @@
 import React from 'react';
+import SignUpForm from '../features/auth/components/SignUpForm';
 
 const PlayOnline = () => {
-  return <div>PlayOnline</div>;
+  return (
+    <div>
+      <SignUpForm />
+    </div>
+  );
 };
 
 export default PlayOnline;
