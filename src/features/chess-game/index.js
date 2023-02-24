@@ -7,7 +7,15 @@ import PlayerBar from './components/PlayerBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPlayers } from '../../redux/board/boardSlice';
 
-const ChessGame = ({ white, black, showStatus, orientation, width, time }) => {
+const ChessGame = ({
+  white,
+  black,
+  showStatus,
+  orientation,
+  width,
+  time,
+  hideEval,
+}) => {
   const [state, setState] = useState({ w: 'idle' });
   const score = useSelector((state) => state.board.score);
   const dispatch = useDispatch();
@@ -37,7 +45,7 @@ const ChessGame = ({ white, black, showStatus, orientation, width, time }) => {
             <PlayerBar color={flip ? 'b' : 'w'} state={state} time={time} />
           )}
         </Stack>
-        <EvalBar score={score} size={width - 100} />
+        {!hideEval && <EvalBar score={score} size={width - 100} />}
       </Stack>
     </div>
   );
@@ -53,6 +61,7 @@ ChessGame.propTypes = {
   black: PropTypes.shape(Player),
   showStatus: PropTypes.bool,
   flip: PropTypes.bool,
+  hideEval: PropTypes.bool,
   time: PropTypes.number,
   orientation: PropTypes.string,
 };
@@ -62,6 +71,7 @@ ChessGame.defaultProps = {
   showStatus: false,
   time: 10,
   flip: false,
+  hideEval: false,
   width: 400,
   white: {
     name: 'White',

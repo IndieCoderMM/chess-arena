@@ -1,11 +1,9 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styles from './MobileHeader.module.css';
-import firebaseApp from '../firebase';
-import { getAuth, signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
-
-const auth = getAuth(firebaseApp);
 
 const MobileHeader = ({ showSidebar }) => {
   const [user] = useAuthState(auth);

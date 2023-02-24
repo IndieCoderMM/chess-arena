@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
-import Card from 'react-bootstrap/Card';
 import { useSelector } from 'react-redux';
+import styles from './Clock.module.css';
 
 const Clock = () => {
   const puzzleStatus = useSelector((state) => state.chess.puzzleStatus);
@@ -25,14 +24,15 @@ const Clock = () => {
   const seconds = Math.floor(time % 60);
 
   return (
-    <Card>
-      <Card.Header>Time</Card.Header>
-      <Card.Body>
-        <Alert>{`${minutes.toString().padStart(2, '0')}:${seconds
-          .toString()
-          .padStart(2, '0')}`}</Alert>
-      </Card.Body>
-    </Card>
+    <div className={styles.clock}>
+      <span className={styles.pad}>
+        {`${minutes.toString().padStart(2, '0')}`}
+      </span>
+      <span className={styles.colon}>:</span>
+      <span className={styles.pad}>
+        {`${seconds.toString().padStart(2, '0')}`}
+      </span>
+    </div>
   );
 };
 

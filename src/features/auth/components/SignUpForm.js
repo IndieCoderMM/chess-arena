@@ -1,15 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
-  getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import firebaseApp from '../../../firebase';
+import { auth } from '../../../firebase';
 import Notibox from './Notibox';
 import styles from './SignUpForm.module.css';
-
-const auth = getAuth(firebaseApp);
+import { Navigate } from 'react-router-dom';
 
 const SignUpForm = () => {
   const [user] = useAuthState(auth);
@@ -41,6 +39,7 @@ const SignUpForm = () => {
 
   return (
     <div className={styles.container}>
+      {user && <Navigate to="/" replace />}
       <form className={styles.form} onSubmit={handleSignUp}>
         <div className={styles.btnGroup}>
           <button

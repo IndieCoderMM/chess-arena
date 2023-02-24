@@ -1,0 +1,24 @@
+.clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0.25em;
+  border: solid 1px #ccc;
+  box-shadow: 1.3px 1.1px 2.1px rgba(0, 0, 0, 0.035),
+    10px 9px 17px rgba(0, 0, 0, 0.07);
+}
+
+.pad {
+  font-size: 1.5em;
+  padding: 0.24em;
+  font-weight: 500;
+  border-radius: 4px;
+  background-color: aliceblue;
+}
+
+.colon {
+  font-size: 1.8em;
+  font-weight: 700;
+}

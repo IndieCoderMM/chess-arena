@@ -1,8 +1,10 @@
 import React from 'react';
-import { Alert, Button, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFen } from '../../../redux/board/boardSlice';
 import { changePuzzleStatus } from '../../../redux/chess/chessSlice';
+import { FaPuzzlePiece } from 'react-icons/fa';
+import styles from './InfoCard.module.css';
+import Clock from './Clock';
 
 const Intro = () => {
   const status = useSelector((state) => state.chess.puzzleStatus);
@@ -14,15 +16,28 @@ const Intro = () => {
   };
 
   return (
-    <Card>
-      <Card.Header>{puzzle ? puzzle.title : 'Puzzle Title'}</Card.Header>
-      <Card.Body>
-        {status === 'success' && <Button onClick={startPuzzle}>Start</Button>}
-        {status === 'solved' && (
-          <Alert variant="success">Congrats... You solved it!</Alert>
-        )}
-      </Card.Body>
-    </Card>
+    <div className={styles.card}>
+      <FaPuzzlePiece />
+
+      <div>
+        <h3 className={styles.title}>
+          {puzzle ? puzzle.title : 'Puzzle Title'}
+        </h3>
+        <p>Press Start to solve the puzzle.</p>
+        {status === 'solved' && <p>Congrats... You solved it!</p>}
+      </div>
+      <div className="d-flex flex-column gap-2">
+        <Clock />
+        <button
+          type="button"
+          className={styles.btn}
+          disabled={status !== 'success'}
+          onClick={startPuzzle}
+        >
+          Start
+        </button>
+      </div>
+    </div>
   );
 };
 

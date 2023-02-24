@@ -1,54 +1,52 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { signOut } from 'firebase/auth';
+import { FaBars, FaHome, FaChess, FaCrown } from 'react-icons/fa';
+import { BsBarChartFill } from 'react-icons/bs';
+import { HiPuzzle } from 'react-icons/hi';
+import { BiLogOut, BiLogIn } from 'react-icons/bi';
+import { auth } from '../firebase';
 import styles from './Sidebar.module.css';
 
 const menu = [
   {
     name: 'Home',
     path: '/',
-    icon: '🏠',
+    icon: <FaHome />,
   },
   {
     name: 'Online Match',
     path: '/play/online',
-    icon: '🎮',
+    icon: <FaChess />,
   },
   {
-    name: 'Vs Computer',
-    path: '/play/vsAi',
-    icon: '🤖',
+    name: 'Training',
+    path: '/practice',
+    icon: <BsBarChartFill />,
   },
   {
     name: 'Puzzle',
     path: '/puzzle',
-    icon: '🧩',
+    icon: <HiPuzzle />,
   },
   {
     name: 'Leaderboard',
     path: '/leaderboard',
-    icon: '📑',
-  },
-  {
-    name: 'Practice',
-    path: '/practice',
-    icon: '♟',
-  },
-  {
-    name: 'Log In',
-    path: '/login',
-    icon: '💎',
+    icon: <FaCrown />,
   },
 ];
 
 const Sidebar = ({ show }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [user] = useAuthState(auth);
 
   const toggleMenu = () => setCollapsed((state) => !state);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <button className={styles.menuBtn} onClick={toggleMenu}>
-          ⏸
+          <FaBars className={styles.bars} />
         </button>
         <h1 className={collapsed ? styles.hide : styles.brand}>ChessArena</h1>
       </div>
@@ -61,11 +59,33 @@ const Sidebar = ({ show }) => {
       </button>
       <div className={styles.menuList}>
         {menu.map((i) => (
-          <NavLink key={i.name} to={i.path} className={styles.navLink}>
-            <span>{i.icon}</span>
+          <NavLink
+            key={i.name}
+            to={i.path}
+            className={styles.navLink}
+            style={({ isActive }) =>
+              isActive ? { borderLeft: 'solid 4px green' } : null
+            }
+          >
+            {i.icon}
             <span className={collapsed ? styles.hide : ''}>{i.name}</span>
           </NavLink>
         ))}
+        {user ? (
+          <button
+            type="button"
+            className={styles.logInBtn}
+            onClick={() => signOut(auth)}
+          >
+            <BiLogOut />
+            <span className={collapsed ? styles.hide : ''}>Log Out</span>
+          </button>
+        ) : (
+          <Link to="/login" className={styles.logInBtn}>
+            <BiLogIn />
+            <span className={collapsed ? styles.hide : ''}>Log In</span>
+          </Link>
+        )}
       </div>
     </div>
   );

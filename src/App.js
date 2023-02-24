@@ -7,8 +7,9 @@ import Leaderboard from './pages/Leaderboard.js';
 import Login from './pages/Login.js';
 import PlayAI from './pages/PlayAI.js';
 import PlayOnline from './pages/PlayOnline.js';
-import Practice from './pages/Practice.js';
+import PlaySolo from './pages/PlaySolo.js';
 import Puzzle from './pages/Puzzle';
+import Practice from './pages/Practice.js';
 
 function App() {
   const [sidebarDisplay, setSidebarDisplay] = useState(true);
@@ -16,14 +17,15 @@ function App() {
   return (
     <div className="App">
       {sidebarDisplay && <Sidebar show={setSidebarDisplay} />}
-      <div className="bg-dark w-100">
+      <div className="w-100">
         <MobileHeader showSidebar={setSidebarDisplay} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/play/online" element={<PlayOnline />} />
-          <Route path="/play/vsAi" element={<PlayAI />} />
-          <Route path="/puzzle" element={<Puzzle />} />
           <Route path="/practice" element={<Practice />} />
+          <Route path="/practice/vsai" element={<PlayAI />} />
+          <Route path="/practice/solo" element={<PlaySolo />} />
+          <Route path="/puzzle" element={<Puzzle />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/login" element={<Login />} />
         </Routes>

@@ -29,3 +29,9 @@
   color: #fff;
   margin: 0;
 }
+
+@media (min-width: 769px) {
+  .header {
+    display: none;
+  }
+}
