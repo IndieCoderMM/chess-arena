@@ -40,7 +40,7 @@ const menu = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ show }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleMenu = () => setCollapsed((state) => !state);
@@ -52,6 +52,13 @@ const Sidebar = () => {
         </button>
         <h1 className={collapsed ? styles.hide : styles.brand}>ChessArena</h1>
       </div>
+      <button
+        type="button"
+        className={styles.closeBtn}
+        onClick={() => show(false)}
+      >
+        &times;
+      </button>
       <div className={styles.menuList}>
         {menu.map((i) => (
           <NavLink key={i.name} to={i.path} className={styles.navLink}>

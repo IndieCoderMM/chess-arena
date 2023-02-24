@@ -1,3 +1,9 @@
+.container {
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -5,7 +11,7 @@
   background-color: rgba(240, 248, 255, 0.57);
   border-radius: 10px;
   padding: 1em;
-  max-width: 400px;
+  width: 100%;
 }
 
 .btnGroup {
@@ -46,4 +52,11 @@
   border-radius: 8px;
   background-color: blueviolet;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    height: 100vh;
+  }
 }

@@ -40,54 +40,56 @@ const SignUpForm = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSignUp}>
-      <div className={styles.btnGroup}>
-        <button
-          type="button"
-          className={method === 'logIn' ? styles.submitBtn : styles.btn}
-          onClick={() => setMethod('logIn')}
-        >
-          <span>👑</span>
-          Log In
-        </button>
-        <button
-          type="button"
-          className={method === 'signUp' ? styles.submitBtn : styles.btn}
-          onClick={() => setMethod('signUp')}
-        >
-          <span>📝</span>
-          Sign Up
-        </button>
-      </div>
-      <div className={styles.inputGroup}>
-        <span>📧</span>
-        <input
-          className={styles.input}
-          type="email"
-          placeholder="name@example.com"
-          ref={mailRef}
-        />
-      </div>
-      <div className={styles.inputGroup}>
-        <span>🔒</span>
-        <input
-          className={styles.input}
-          type="password"
-          placeholder="Password"
-          ref={passwordRef}
-        />
-      </div>
+    <div className={styles.container}>
+      <form className={styles.form} onSubmit={handleSignUp}>
+        <div className={styles.btnGroup}>
+          <button
+            type="button"
+            className={method === 'logIn' ? styles.submitBtn : styles.btn}
+            onClick={() => setMethod('logIn')}
+          >
+            <span>👑</span>
+            Log In
+          </button>
+          <button
+            type="button"
+            className={method === 'signUp' ? styles.submitBtn : styles.btn}
+            onClick={() => setMethod('signUp')}
+          >
+            <span>📝</span>
+            Sign Up
+          </button>
+        </div>
+        <div className={styles.inputGroup}>
+          <span>📧</span>
+          <input
+            className={styles.input}
+            type="email"
+            placeholder="name@example.com"
+            ref={mailRef}
+          />
+        </div>
+        <div className={styles.inputGroup}>
+          <span>🔒</span>
+          <input
+            className={styles.input}
+            type="password"
+            placeholder="Password"
+            ref={passwordRef}
+          />
+        </div>
 
-      <button
-        className={styles.submitBtn}
-        disabled={loading}
-        variant="success"
-        type="submit"
-      >
-        {method === 'logIn' ? 'Log In' : 'Sign Up'}
-      </button>
-      <Notibox error={error} message={user && `Welcome ${user.email}!`} />
-    </form>
+        <button
+          className={styles.submitBtn}
+          disabled={loading}
+          variant="success"
+          type="submit"
+        >
+          {method === 'logIn' ? 'Log In' : 'Sign Up'}
+        </button>
+        <Notibox error={error} message={user && `Welcome ${user.email}!`} />
+      </form>
+    </div>
   );
 };
 

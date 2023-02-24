@@ -1,0 +1,31 @@
+.header {
+  width: 100%;
+  background-color: hsl(48deg 5% 18%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25em 1em;
+}
+
+.menuBtn {
+  background: none;
+  border: none;
+  padding: 1em;
+}
+
+.btn {
+  background: none;
+  border: none;
+  text-decoration: none;
+  border-radius: 8px;
+  background-color: darkorange;
+  color: #fff;
+  padding: 0.25em 0.5em;
+}
+
+.brand {
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
