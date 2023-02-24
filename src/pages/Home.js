@@ -21,7 +21,7 @@ const features = [
   {
     title: 'Vs Computer',
     icon: <FcElectronics />,
-    path: '/train/vsai',
+    path: '/practice/vsai',
   },
   {
     title: 'Top Players',

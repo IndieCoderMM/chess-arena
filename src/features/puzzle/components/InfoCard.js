@@ -18,7 +18,6 @@ const Intro = () => {
   return (
     <div className={styles.card}>
       <FaPuzzlePiece />
-
       <div>
         <h3 className={styles.title}>
           {puzzle ? puzzle.title : 'Puzzle Title'}

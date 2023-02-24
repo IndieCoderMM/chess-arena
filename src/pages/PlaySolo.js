@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -9,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import styles from './PlaySolo.module.css';
 
 const PlaySolo = () => {
   const [flip, setFlip] = useState(false);
@@ -28,35 +27,45 @@ const PlaySolo = () => {
   }, [dispatch]);
 
   return (
-    <Container>
-      <h2>Practice Mode</h2>
-      <p>
-        In this page, you can practice Chess with a free board. To draw arrows,
-        use right-click-button.
-      </p>
+    <Container
+      fluid
+      style={{ backgroundColor: 'var(--dark-gray)', minHeight: '100vh' }}
+    >
       <Row className="p-2">
         <Col>
-          <Stack gap={1}>
-            <ChessGame
-              showStatus
-              orientation={flip ? 'black' : 'white'}
-              width={450}
-            />
-            <ButtonGroup>
-              <Button type="button" onClick={() => setFlip((o) => !o)}>
-                Flip Board
-              </Button>
-              <Button type="button" onClick={resetBoard}>
-                Reset Board
-              </Button>
-              <Button type="button" onClick={undoMove}>
-                Undo Move
-              </Button>
-            </ButtonGroup>
-          </Stack>
+          <ChessGame
+            showStatus
+            orientation={flip ? 'black' : 'white'}
+            width={450}
+          />
         </Col>
         <Col>
-          <MoveDisplay />
+          <Stack gap={1}>
+            <MoveDisplay />
+            <div className={styles.btnGroup}>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={() => setFlip((o) => !o)}
+              >
+                Flip Board
+              </button>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={resetBoard}
+              >
+                Reset Board
+              </button>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={undoMove}
+              >
+                Undo Move
+              </button>
+            </div>
+          </Stack>
         </Col>
       </Row>
     </Container>

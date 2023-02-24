@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Stack from 'react-bootstrap/Stack';
+import Container from 'react-bootstrap/Container';
 import Chessboard from './components/Board';
 import EvalBar from './components/EvalBar';
 import PlayerBar from './components/PlayerBar';
@@ -30,9 +31,9 @@ const ChessGame = ({
   const flip = orientation === 'black';
 
   return (
-    <div>
-      <Stack direction="horizontal" gap={2}>
-        <Stack className="align-items-center">
+    <Container fluid className="d-flex justify-content-center">
+      <Stack direction="horizontal" gap={1}>
+        <Stack gap={3}>
           {showStatus && (
             <PlayerBar color={flip ? 'w' : 'b'} state={state} time={time} />
           )}
@@ -45,9 +46,9 @@ const ChessGame = ({
             <PlayerBar color={flip ? 'b' : 'w'} state={state} time={time} />
           )}
         </Stack>
-        {!hideEval && <EvalBar score={score} size={width - 100} />}
+        {!hideEval && <EvalBar score={score} size={width - 50} />}
       </Stack>
-    </div>
+    </Container>
   );
 };
 

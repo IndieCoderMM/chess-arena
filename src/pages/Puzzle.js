@@ -16,26 +16,20 @@ const Puzzle = () => {
 
   return (
     <Container
-      className="bg-warning text-center p-3"
+      className="text-center p-3"
       fluid
-      style={{ minHeight: '100vh' }}
+      style={{ backgroundColor: 'var(--dark-gray)', minHeight: '100vh' }}
     >
-      <Row>
+      <Row md={2} className="align-content-center">
         <Col>
-          <InfoCard />
-        </Col>
-        <Col>
-          <StatsCard />
-        </Col>
-      </Row>
-
-      <Row className="p-1">
-        <Col>
-          <ChessGame hideEval />
-          <Validator />
+          <div className="d-flex flex-column gap-2">
+            <InfoCard />
+            <ChessGame hideEval />
+          </div>
         </Col>
         <Col>
           <Stack gap={2}>
+            <StatsCard />
             <MoveDisplay />
             <Button onClick={() => dispatch(updateCommand('undo'))}>
               Undo Move

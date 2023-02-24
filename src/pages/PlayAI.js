@@ -1,6 +1,7 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import ChessGame, { MoveDisplay } from '../features/chess-game';
+import styles from './PlayAI.module.css';
 
 const PlayAI = () => {
   const white = {
@@ -12,17 +13,16 @@ const PlayAI = () => {
     rating: 3000,
   };
   return (
-    <Container>
-      <h2>Play with a Computer Opponent</h2>
+    <div className={styles.container}>
       <Row>
         <Col>
-          <ChessGame white={white} black={black} showStatus />
+          <ChessGame white={white} black={black} width={550} showStatus />
         </Col>
         <Col>
           <MoveDisplay />
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

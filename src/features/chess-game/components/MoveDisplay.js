@@ -9,7 +9,7 @@ const MoveDisplay = () => {
   const movePairs = pairMoves(moves);
   return (
     <div className={styles.card}>
-      <header>Moves({movePairs.length})</header>
+      <h3 className={styles.title}>Moves({movePairs.length})</h3>
       <div className={styles.container}>
         {movePairs.map((m, i) => (
           <Badge key={m}>

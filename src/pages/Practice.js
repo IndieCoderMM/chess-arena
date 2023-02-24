@@ -6,8 +6,7 @@ import styles from './Practice.module.css';
 const Training = () => {
   return (
     <div className={styles.container}>
-      <h2>Training Mode</h2>
-      <div className="d-flex justify-content-center gap-3">
+      <div className="d-flex flex-wrap justify-content-center align-items-center h-75 gap-3">
         <Link to="/practice/vsai" className={styles.card}>
           <h3>Vs Computer</h3>
           <FaRobot className={styles.icon} />

@@ -16,7 +16,7 @@ const menu = [
     icon: <FaHome />,
   },
   {
-    name: 'Online Match',
+    name: 'Play',
     path: '/play/online',
     icon: <FaChess />,
   },

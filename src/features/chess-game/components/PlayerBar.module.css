@@ -1,20 +1,37 @@
-.icon {
-  width: 3em;
-  height: 3em;
-  border-radius: 50%;
-  background-color: cornflowerblue;
+.container {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 12px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
-  color: #fff;
-  box-sizing: border-box;
-  border: solid 3px rebeccapurple;
+  gap: 1em;
+  padding: 0.5em;
+  box-shadow: 0px 8px 0px rgba(227, 225, 225, 0.8);
 }
 
-.icon.active {
-  border-color: green;
+.icon {
+  background-color: cornflowerblue;
+  padding: 0.25em;
+  border-radius: 8px;
+  border: solid 2px #fff;
+}
+
+.icon > svg {
+  font-size: 3em;
+  color: #fff;
+}
+
+.name {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.rating {
+  font-family: Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #000;
 }
 
 .clock {

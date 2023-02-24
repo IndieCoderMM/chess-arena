@@ -1,6 +1,6 @@
 import React from 'react';
-import Stack from 'react-bootstrap/Stack';
 import { useSelector } from 'react-redux';
+import { RiUser5Fill, RiUser5Line } from 'react-icons/ri';
 import styles from './PlayerBar.module.css';
 
 const PlayerBar = ({ color, state, time }) => {
@@ -9,26 +9,27 @@ const PlayerBar = ({ color, state, time }) => {
   const status = useSelector((state) => state.board.status);
 
   const name = players[color].name;
+  const rating = players[color].rating;
   const turn = fen === 'start' ? 'w' : fen.split(' ')[1];
   const message =
     status === 'lose' ? 'Checkmate!' : status === 'inCheck' ? 'Checked!' : '';
   return (
-    <Stack
-      direction="horizontal"
-      className="justify-content-between bg-light p-1 text-primary"
-    >
-      <Stack direction="horizontal">
+    <div className={styles.container}>
+      <div className="d-flex gap-1 align-items-start">
         <div
           className={styles.icon}
-          style={{ borderColor: turn === color && 'yellow' }}
+          style={{ borderColor: turn === color && 'green' }}
         >
-          {name.toUpperCase()[0]}
+          {color === 'w' ? <RiUser5Fill /> : <RiUser5Line />}
         </div>
-        <h3>{name}</h3>
-      </Stack>
+        <div>
+          <h3 className={styles.name}>{name}</h3>
+          <h5 className={styles.rating}>{rating}</h5>
+        </div>
+      </div>
       {turn !== color && message && <p>{message.toUpperCase()}</p>}
       <div className={styles.clock}>{time}:00</div>
-    </Stack>
+    </div>
   );
 };
 

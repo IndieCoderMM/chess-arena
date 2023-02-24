@@ -1,5 +1,4 @@
 import React from 'react';
-import Badge from 'react-bootstrap/Badge';
 import styles from './EvalBar.module.css';
 
 const EvalBar = ({ score, size }) => {
@@ -19,7 +18,7 @@ const EvalBar = ({ score, size }) => {
           }}
         />
       </div>
-      <Badge className="bg-info">{score > 0 ? `+${score}` : score}</Badge>
+      <div className={styles.badge}>{score > 0 ? `+${score}` : score}</div>
     </div>
   );
 };

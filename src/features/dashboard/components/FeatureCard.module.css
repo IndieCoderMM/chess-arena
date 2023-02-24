@@ -1,6 +1,6 @@
 .card {
   padding: 1em;
-  background-color: rgba(70, 71, 71, 0.774);
+  background-color: var(--light-gray);
   color: #fff;
   text-decoration: none;
   display: flex;

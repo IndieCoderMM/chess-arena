@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+:root {
+  --dark-gray: #32312d;
+  --light-gray: rgba(70, 71, 71, 0.774);
+}
+
 .App {
   display: flex;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
