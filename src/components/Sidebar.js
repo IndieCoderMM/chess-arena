@@ -33,6 +33,11 @@ const menu = [
     path: '/practice',
     icon: '♟',
   },
+  {
+    name: 'Log In',
+    path: '/login',
+    icon: '💎',
+  },
 ];
 
 const Sidebar = () => {

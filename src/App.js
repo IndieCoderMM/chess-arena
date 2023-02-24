@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar.js';
 import Home from './pages/Home.js';
 import Leaderboard from './pages/Leaderboard.js';
+import Login from './pages/Login.js';
 import PlayAI from './pages/PlayAI.js';
 import PlayOnline from './pages/PlayOnline.js';
 import Practice from './pages/Practice.js';
@@ -18,6 +19,7 @@ function App() {
         <Route path="/puzzle" element={<Puzzle />} />
         <Route path="/practice" element={<Practice />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
