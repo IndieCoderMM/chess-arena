@@ -1,43 +1,73 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Button, Form, Modal } from 'react-bootstrap';
-import { useAuth } from '../../../contexts/AuthProvider';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { getAuth } from 'firebase/auth';
+import firebaseApp from '../../../firebase';
+
+const auth = getAuth(firebaseApp);
 
 const SignUpForm = () => {
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
   const [show, setShow] = useState(true);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const nameRef = useRef();
+  const [alert, setAlert] = useState({
+    display: false,
+    variant: 'primary',
+    msg: '',
+  });
+
   const mailRef = useRef();
   const passwordRef = useRef();
-  const { signUp } = useAuth();
 
   const handleClose = () => setShow(false);
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const name = nameRef.current.value.trim();
     const email = mailRef.current.value.trim();
     const password = passwordRef.current.value.trim();
-    if (name && email && password) {
-      console.log(name, email, password);
+    if (email && password) {
       try {
-        setError('');
-        setLoading(true);
-        await signUp(email, password);
+        await createUserWithEmailAndPassword(email, password);
       } catch (err) {
         console.log(err.message);
         console.log('Error creating new user!');
       }
-      setLoading(false);
     }
   };
+
+  console.log(user);
+  useEffect(() => {
+    if (error) {
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          setAlert({
+            display: true,
+            msg: 'Looks like you already have an account! Sign in instead',
+            variant: 'info',
+          });
+          break;
+        default:
+          setAlert({
+            display: true,
+            msg: 'Firebase Error!',
+            variant: 'danger',
+          });
+      }
+    } else {
+      setAlert({
+        display: false,
+        msg: '',
+        variant: 'primary',
+      });
+    }
+  }, [error]);
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Join Now!</Modal.Title>
+        <Modal.Title>{user ? user.user.email : 'Join Now!'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form className="d-flex flex-column gap-2" onSubmit={handleSignUp}>
-          <Form.Control type="text" placeholder="Username" ref={nameRef} />
           <Form.Control
             type="email"
             placeholder="name@example.com"
@@ -52,7 +82,7 @@ const SignUpForm = () => {
             Sign Up
           </Button>
         </Form>
-        {error && <Alert>{error}</Alert>}
+        {alert.display && <Alert variant={alert.variant}>{alert.msg}</Alert>}
       </Modal.Body>
     </Modal>
   );
