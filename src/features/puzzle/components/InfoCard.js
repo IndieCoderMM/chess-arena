@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateCommand, updateFen } from '../../../redux/board/boardSlice';
+import { resetBoard, updateBoard } from '../../../redux/board/boardSlice';
 import { changePuzzleStatus } from '../../../redux/chess/chessSlice';
 import { FaCalendarCheck, FaChessPawn, FaPuzzlePiece } from 'react-icons/fa';
 import styles from './InfoCard.module.css';
@@ -12,11 +12,12 @@ const Intro = () => {
   const dispatch = useDispatch();
   const startPuzzle = () => {
     dispatch(changePuzzleStatus('solving'));
-    dispatch(updateFen(puzzle.fen));
+    dispatch(updateBoard({ fen: puzzle.fen }));
   };
 
   const resetPuzzle = () => {
-    dispatch(updateFen(puzzle.fen));
+    dispatch(resetBoard());
+    dispatch(updateBoard({ fen: puzzle.fen }));
   };
 
   return (

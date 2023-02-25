@@ -4,9 +4,9 @@ import { Chess } from 'chess.js';
 import { Chessboard } from 'react-chessboard';
 import styles from './Board.module.css';
 import getHighlightStyle from '../utils/getHighlightStyle';
-import parseSquares, { convertMoveToSquare } from '../utils/parseSquares';
+import parseSquares from '../utils/parseSquares';
 import evaluateFen from '../utils/evaluateFen';
-import { updateCommand, updateBoard } from '../../../redux/board/boardSlice';
+import { updateBoard } from '../../../redux/board/boardSlice';
 
 function Board({ orientation, width }) {
   const fen = useSelector((state) => state.board.fen);
@@ -20,28 +20,10 @@ function Board({ orientation, width }) {
 
   useEffect(() => {
     if (command === 'reset') {
-      game.reset();
       setSelected('');
       setMoveFrom('');
       setValidMoves([]);
-      dispatch(updateBoard({ fen: 'start', moves: [] }));
-    } else if (command === 'undo') {
-      const undo = game.undo();
-      if (undo) {
-        setSelected('');
-        if (moves.length) setMoveFrom(convertMoveToSquare(moves.at(-1)));
-        else setMoveFrom('');
-        setValidMoves([]);
-        dispatch(
-          updateBoard({
-            fen: game.fen(),
-            moves: moves.slice(0, moves.length - 1),
-          }),
-        );
-      }
     }
-
-    dispatch(updateCommand(''));
   }, [command]);
 
   const makeMove = ({ sourceSquare, targetSquare }) => {

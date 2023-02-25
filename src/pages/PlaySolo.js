@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ChessGame, { MoveDisplay } from '../features/chess-game';
-import { updateCommand } from '../redux/board/boardSlice';
+import { resetBoard } from '../redux/board/boardSlice';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -14,16 +14,10 @@ const PlaySolo = () => {
   const [flip, setFlip] = useState(false);
   const dispatch = useDispatch();
 
-  const resetBoard = () => {
-    dispatch(updateCommand('reset'));
-  };
-
-  const undoMove = () => {
-    dispatch(updateCommand('undo'));
-  };
+  const undoMove = () => {};
   // Reset Board on load
   useEffect(() => {
-    dispatch(updateCommand('reset'));
+    dispatch(resetBoard());
   }, [dispatch]);
 
   return (
@@ -53,7 +47,7 @@ const PlaySolo = () => {
               <button
                 className={styles.button}
                 type="button"
-                onClick={resetBoard}
+                onClick={() => dispatch(resetBoard())}
               >
                 Reset Board
               </button>

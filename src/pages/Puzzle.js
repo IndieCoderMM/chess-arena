@@ -5,14 +5,22 @@ import ChessGame from '../features/chess-game';
 import { InfoCard, StatsCard } from '../features/puzzle';
 import PuzzleValidator from '../features/engine/components/PuzzleValidator';
 import { getTodayPuzzle } from '../redux/chess/chessSlice';
+import { resetBoard } from '../redux/board/boardSlice';
 
 const Puzzle = () => {
+  const puzzle = useSelector((state) => state.chess.puzzleData);
   const status = useSelector((state) => state.chess.puzzleStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(resetBoard());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (status === 'idle') dispatch(getTodayPuzzle());
   }, [status, dispatch]);
+
+  const turn = puzzle?.fen.split(' ')[1];
 
   return (
     <Container
@@ -20,11 +28,13 @@ const Puzzle = () => {
       fluid
       style={{ backgroundColor: 'var(--dark-gray)', minHeight: '100vh' }}
     >
+      <PuzzleValidator />
       <Row md={2}>
         <Col className="p-1">
           <Stack gap={2}>
             <InfoCard />
             <ChessGame
+              orientation={turn && turn === 'b' ? 'black' : 'white'}
               width={window.innerWidth < 500 ? window.innerWidth : 500}
             />
           </Stack>

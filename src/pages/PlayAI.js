@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import ChessGame, { MoveDisplay } from '../features/chess-game';
+import RandomMover from '../features/engine/components/RandomMover';
+import { resetBoard } from '../redux/board/boardSlice';
 import styles from './PlayAI.module.css';
 
 const PlayAI = () => {
   const white = {
-    name: 'Human',
+    name: 'You',
     rating: 1500,
   };
   const black = {
     name: 'Computer',
     rating: 3000,
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetBoard());
+  }, [dispatch]);
+
   return (
     <div className={styles.container}>
       <Row>
@@ -28,7 +38,7 @@ const PlayAI = () => {
           <MoveDisplay />
         </Col>
       </Row>
-      {/* <RandomMover color="b" /> */}
+      <RandomMover color="b" />
     </div>
   );
 };

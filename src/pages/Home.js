@@ -2,22 +2,12 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import FeatureCard from '../features/dashboard/components/FeatureCard';
 import ProfileBar from '../features/dashboard/components/ProfileBar';
-import {
-  FaChessKnight,
-  FaEquals,
-  FaTrophy,
-  FaWindowClose,
-} from 'react-icons/fa';
+import { FaChessKnight, FaTrophy } from 'react-icons/fa';
 import { FcPuzzle, FcElectronics } from 'react-icons/fc';
-import {
-  BsClockFill,
-  BsFillCheckCircleFill,
-  BsLightning,
-} from 'react-icons/bs';
-import { GiRabbit } from 'react-icons/gi';
-import { Col, Row, Table } from 'react-bootstrap';
+
+import { Col, Row } from 'react-bootstrap';
 import styles from './Home.module.css';
-import { BiRocket } from 'react-icons/bi';
+import MatchesTable from '../features/dashboard/components/MatchesTable';
 
 const features = [
   {
@@ -89,46 +79,7 @@ const Home = () => {
         </Container>
         <Container>
           <h3 className="text-light">Recent Matches</h3>
-          <Table variant="dark" responsive>
-            <thead>
-              <tr>
-                <th>
-                  <BsClockFill />
-                </th>
-                <th>Players</th>
-                <th>Result</th>
-                <th>Moves</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {matches.map((m) => (
-                <tr key={m.players + m.moves}>
-                  <td style={{ color: 'var(--bs-yellow)' }}>
-                    {m.type === 'blitz' ? (
-                      <BiRocket />
-                    ) : (
-                      (m.type = 'bullet' ? <BsLightning /> : <GiRabbit />)
-                    )}
-                  </td>
-                  <td>{`${m.players[0]} vs ${m.players[1]}`}</td>
-                  <td>
-                    {m.result === 1 ? (
-                      <BsFillCheckCircleFill
-                        style={{ color: 'var(--bs-teal)' }}
-                      />
-                    ) : m.result === 0 ? (
-                      <FaEquals style={{ color: 'var(--bs-orange)' }} />
-                    ) : (
-                      <FaWindowClose style={{ color: 'var(--bs-red)' }} />
-                    )}
-                  </td>
-                  <td>{m.moves}</td>
-                  <td>{m.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+          <MatchesTable matches={matches} />
         </Container>
       </Container>
     </div>

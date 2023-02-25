@@ -25,6 +25,11 @@ const boardSlice = createSlice({
     updateBoard(state, action) {
       return { ...state, ...action.payload };
     },
+    resetBoard(state) {
+      state.fen = 'start';
+      state.moves = [];
+      state.status = 'idle';
+    },
     updateFen(state, action) {
       state.fen = action.payload;
     },
@@ -46,12 +51,7 @@ const boardSlice = createSlice({
   },
 });
 
-export const {
-  updateBoard,
-  updateFen,
-  updateCommand,
-  makeMove,
-  createPlayers,
-} = boardSlice.actions;
+export const { updateBoard, resetBoard, makeMove, createPlayers } =
+  boardSlice.actions;
 
 export default boardSlice.reducer;
