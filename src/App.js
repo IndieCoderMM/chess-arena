@@ -12,7 +12,7 @@ import Puzzle from './pages/Puzzle';
 import Practice from './pages/Practice.js';
 
 function App() {
-  const [sidebarDisplay, setSidebarDisplay] = useState(true);
+  const [sidebarDisplay, setSidebarDisplay] = useState(window.innerWidth > 768);
 
   return (
     <div className="App">

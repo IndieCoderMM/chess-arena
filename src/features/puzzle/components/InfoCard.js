@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateFen } from '../../../redux/board/boardSlice';
+import { updateCommand, updateFen } from '../../../redux/board/boardSlice';
 import { changePuzzleStatus } from '../../../redux/chess/chessSlice';
-import { FaPuzzlePiece } from 'react-icons/fa';
+import { FaCalendarCheck, FaChessPawn, FaPuzzlePiece } from 'react-icons/fa';
 import styles from './InfoCard.module.css';
-import Clock from './Clock';
+import { Link } from 'react-router-dom';
 
 const Intro = () => {
   const status = useSelector((state) => state.chess.puzzleStatus);
@@ -15,26 +15,40 @@ const Intro = () => {
     dispatch(updateFen(puzzle.fen));
   };
 
+  const resetPuzzle = () => {
+    dispatch(updateFen(puzzle.fen));
+  };
+
   return (
     <div className={styles.card}>
-      <FaPuzzlePiece />
-      <div>
-        <h3 className={styles.title}>
-          {puzzle ? puzzle.title : 'Puzzle Title'}
-        </h3>
-        <p>Press Start to solve the puzzle.</p>
-        {status === 'solved' && <p>Congrats... You solved it!</p>}
+      <div className="d-flex gap-1">
+        <FaPuzzlePiece className={styles.icon} />
+        <div>
+          <h3 className={styles.title}>
+            {puzzle ? puzzle.title : 'Puzzle Title'}
+          </h3>
+          <div className="d-flex align-items-center">
+            <FaCalendarCheck style={{ color: 'var(--bs-blue)' }} />
+            <span>
+              {puzzle && new Date(puzzle.publish_time * 1000).toDateString()}
+            </span>
+          </div>
+          <div className="d-flex align-items-center">
+            <FaChessPawn style={{ color: 'var(--bs-green)' }} />
+            <span>{puzzle && <Link to={puzzle.url}>From Chess.com</Link>}</span>
+          </div>
+        </div>
       </div>
-      <div className="d-flex flex-column gap-2">
-        <Clock />
-        <button
-          type="button"
-          className={styles.btn}
-          disabled={status !== 'success'}
-          onClick={startPuzzle}
-        >
-          Start
-        </button>
+      <div className={styles.btnGroup}>
+        {status === 'success' ? (
+          <button type="button" className={styles.btn} onClick={startPuzzle}>
+            Start
+          </button>
+        ) : (
+          <button type="button" className={styles.btn} onClick={resetPuzzle}>
+            Reset
+          </button>
+        )}
       </div>
     </div>
   );

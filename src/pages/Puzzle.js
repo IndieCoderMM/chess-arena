@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Button, Col, Container, Row, Stack } from 'react-bootstrap';
+import { Col, Container, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import ChessGame, { MoveDisplay } from '../features/chess-game';
+import ChessGame from '../features/chess-game';
 import { InfoCard, Validator, StatsCard } from '../features/puzzle';
 import { updateCommand } from '../redux/board/boardSlice';
 import { getTodayPuzzle } from '../redux/chess/chessSlice';
+import styles from './Puzzle.module.css';
 
 const Puzzle = () => {
   const status = useSelector((state) => state.chess.puzzleStatus);
@@ -16,25 +17,19 @@ const Puzzle = () => {
 
   return (
     <Container
-      className="text-center p-3"
+      className="p-3"
       fluid
       style={{ backgroundColor: 'var(--dark-gray)', minHeight: '100vh' }}
     >
-      <Row md={2} className="align-content-center">
-        <Col>
-          <div className="d-flex flex-column gap-2">
+      <Row md={2}>
+        <Col className="p-1">
+          <Stack gap={2}>
             <InfoCard />
             <ChessGame hideEval />
-          </div>
-        </Col>
-        <Col>
-          <Stack gap={2}>
-            <StatsCard />
-            <MoveDisplay />
-            <Button onClick={() => dispatch(updateCommand('undo'))}>
-              Undo Move
-            </Button>
           </Stack>
+        </Col>
+        <Col className="p-1">
+          <StatsCard />
         </Col>
       </Row>
     </Container>

@@ -15,10 +15,10 @@ const PlayAI = () => {
   return (
     <div className={styles.container}>
       <Row>
-        <Col>
-          <ChessGame white={white} black={black} width={550} showStatus />
+        <Col className="p-1">
+          <ChessGame white={white} black={black} showStatus />
         </Col>
-        <Col>
+        <Col className="p-3">
           <MoveDisplay />
         </Col>
       </Row>

@@ -33,13 +33,9 @@ const PlaySolo = () => {
     >
       <Row className="p-2">
         <Col>
-          <ChessGame
-            showStatus
-            orientation={flip ? 'black' : 'white'}
-            width={450}
-          />
+          <ChessGame showStatus orientation={flip ? 'black' : 'white'} />
         </Col>
-        <Col>
+        <Col className="p-3">
           <Stack gap={1}>
             <MoveDisplay />
             <div className={styles.btnGroup}>

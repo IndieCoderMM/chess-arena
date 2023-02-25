@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTopPlayers } from '../redux/chess/chessSlice';
 import Table from 'react-bootstrap/Table';
 import styles from './Leaderboard.module.css';
-import { Container } from 'react-bootstrap';
+import { Badge, Container } from 'react-bootstrap';
 
 const Leaderboard = () => {
   const topPlayers = useSelector((state) => state.chess.leaderboardData);
@@ -15,29 +15,33 @@ const Leaderboard = () => {
   }, [status, dispatch]);
 
   return (
-    <div className={styles.container}>
-      <h2>Leaderboard</h2>
+    <Container
+      fluid
+      style={{ backgroundColor: 'var(--dark-gray)', minHeight: '100vh' }}
+    >
+      <h2 className="text-light text-center">Top Players on Chess.com</h2>
       <Container>
-        <Table striped bordered size="sm" responsive>
+        <Table striped bordered variant="dark" responsive>
           <thead>
-            <tr>
-              <th>Rank</th>
+            <tr className="text-center">
+              <th>#</th>
               <th>Profile</th>
-              <th>Player</th>
+              <th>Username</th>
               <th>Title</th>
-              <th>Blitz Rating</th>
-              <th>Win %</th>
+              <th>Rating</th>
+              <th>Win%</th>
             </tr>
           </thead>
           <tbody>
             {topPlayers.map((p) => (
-              <tr key={p.player_id}>
-                <td>{'# ' + p.rank}</td>
+              <tr key={p.player_id} className="text-center">
+                <td>{p.rank}</td>
                 <td>
                   <img src={p.avatar} width={40} alt={p.username} />
                 </td>
                 <td>
                   <a
+                    className={styles.name}
                     href={p.url}
                     target="_blank"
                     rel="noreferrer"
@@ -46,7 +50,9 @@ const Leaderboard = () => {
                     {p.username}
                   </a>
                 </td>
-                <td>{p.title}</td>
+                <td>
+                  <Badge bg="success">{p.title}</Badge>
+                </td>
                 <td>{p.score}</td>
                 <td>
                   {(
@@ -60,7 +66,7 @@ const Leaderboard = () => {
           </tbody>
         </Table>
       </Container>
-    </div>
+    </Container>
   );
 };
 

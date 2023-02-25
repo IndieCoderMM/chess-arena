@@ -38,7 +38,7 @@ const menu = [
 ];
 
 const Sidebar = ({ show }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [user] = useAuthState(auth);
 
   const toggleMenu = () => setCollapsed((state) => !state);
@@ -48,21 +48,25 @@ const Sidebar = ({ show }) => {
         <button className={styles.menuBtn} onClick={toggleMenu}>
           <FaBars className={styles.bars} />
         </button>
+        <button
+          type="button"
+          className={styles.closeBtn}
+          onClick={() => show(false)}
+        >
+          &times;
+        </button>
         <h1 className={collapsed ? styles.hide : styles.brand}>ChessArena</h1>
       </div>
-      <button
-        type="button"
-        className={styles.closeBtn}
-        onClick={() => show(false)}
-      >
-        &times;
-      </button>
+
       <div className={styles.menuList}>
         {menu.map((i) => (
           <NavLink
             key={i.name}
             to={i.path}
             className={styles.navLink}
+            onClick={() => {
+              if (window.innerWidth <= 768) show(false);
+            }}
             style={({ isActive }) =>
               isActive ? { borderLeft: 'solid 4px green' } : null
             }
@@ -74,14 +78,14 @@ const Sidebar = ({ show }) => {
         {user ? (
           <button
             type="button"
-            className={styles.logInBtn}
+            className={styles.logBtn}
             onClick={() => signOut(auth)}
           >
             <BiLogOut />
             <span className={collapsed ? styles.hide : ''}>Log Out</span>
           </button>
         ) : (
-          <Link to="/login" className={styles.logInBtn}>
+          <Link to="/login" className={styles.logBtn}>
             <BiLogIn />
             <span className={collapsed ? styles.hide : ''}>Log In</span>
           </Link>

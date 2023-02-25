@@ -2,10 +2,22 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import FeatureCard from '../features/dashboard/components/FeatureCard';
 import ProfileBar from '../features/dashboard/components/ProfileBar';
-import { FaChessKnight, FaTrophy } from 'react-icons/fa';
+import {
+  FaChessKnight,
+  FaEquals,
+  FaTrophy,
+  FaWindowClose,
+} from 'react-icons/fa';
 import { FcPuzzle, FcElectronics } from 'react-icons/fc';
+import {
+  BsClockFill,
+  BsFillCheckCircleFill,
+  BsLightning,
+} from 'react-icons/bs';
+import { GiRabbit } from 'react-icons/gi';
 import { Col, Row, Table } from 'react-bootstrap';
 import styles from './Home.module.css';
+import { BiRocket } from 'react-icons/bi';
 
 const features = [
   {
@@ -42,7 +54,7 @@ const matches = [
     type: 'bullet',
     players: ['You', 'Alex'],
     result: -1,
-    moves: 34,
+    moves: 36,
     date: '1 Feb 2023',
   },
   {
@@ -69,40 +81,47 @@ const Home = () => {
         <Container className="p-3">
           <Row md={4}>
             {features.map((i) => (
-              <Col className="p-2">
-                <FeatureCard
-                  key={i.title}
-                  icon={i.icon}
-                  title={i.title}
-                  path={i.path}
-                />
+              <Col key={i.title} className="p-2">
+                <FeatureCard icon={i.icon} title={i.title} path={i.path} />
               </Col>
             ))}
           </Row>
         </Container>
         <Container>
           <h3 className="text-light">Recent Matches</h3>
-          <Table variant="dark">
+          <Table variant="dark" responsive>
             <thead>
               <tr>
-                <th></th>
+                <th>
+                  <BsClockFill />
+                </th>
                 <th>Players</th>
-                <th>Results</th>
+                <th>Result</th>
                 <th>Moves</th>
                 <th>Date</th>
               </tr>
             </thead>
             <tbody>
               {matches.map((m) => (
-                <tr>
-                  <td>
-                    {m.type === 'blitz'
-                      ? '🚀'
-                      : (m.type = 'bullet' ? '⚡' : '🐢')}
+                <tr key={m.players + m.moves}>
+                  <td style={{ color: 'var(--bs-yellow)' }}>
+                    {m.type === 'blitz' ? (
+                      <BiRocket />
+                    ) : (
+                      (m.type = 'bullet' ? <BsLightning /> : <GiRabbit />)
+                    )}
                   </td>
                   <td>{`${m.players[0]} vs ${m.players[1]}`}</td>
                   <td>
-                    {m.result === 1 ? '✅' : m.result === 0 ? '🟡' : '❌'}
+                    {m.result === 1 ? (
+                      <BsFillCheckCircleFill
+                        style={{ color: 'var(--bs-teal)' }}
+                      />
+                    ) : m.result === 0 ? (
+                      <FaEquals style={{ color: 'var(--bs-orange)' }} />
+                    ) : (
+                      <FaWindowClose style={{ color: 'var(--bs-red)' }} />
+                    )}
                   </td>
                   <td>{m.moves}</td>
                   <td>{m.date}</td>

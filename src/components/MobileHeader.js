@@ -4,6 +4,8 @@ import styles from './MobileHeader.module.css';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
+import { FaBars } from 'react-icons/fa';
+import { BiLogIn, BiLogOut } from 'react-icons/bi';
 
 const MobileHeader = ({ showSidebar }) => {
   const [user] = useAuthState(auth);
@@ -15,7 +17,7 @@ const MobileHeader = ({ showSidebar }) => {
           className={styles.menuBtn}
           onClick={() => showSidebar(true)}
         >
-          ⏸
+          <FaBars />
         </button>
         <h1 className={styles.brand}>Chess Arena</h1>
       </div>
@@ -24,12 +26,17 @@ const MobileHeader = ({ showSidebar }) => {
           type="button"
           className={styles.btn}
           onClick={() => signOut(auth)}
+          style={{ backgroundColor: 'var(--bs-red)' }}
         >
-          Sign Out
+          <BiLogOut />
         </button>
       ) : (
-        <Link to="/login" className={styles.btn}>
-          Log In
+        <Link
+          to="/login"
+          className={styles.btn}
+          style={{ backgroundColor: 'var(--bs-green)' }}
+        >
+          <BiLogIn />
         </Link>
       )}
     </div>

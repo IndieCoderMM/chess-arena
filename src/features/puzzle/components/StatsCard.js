@@ -1,13 +1,12 @@
 import { FaUser } from 'react-icons/fa';
 import { FcClock, FcCalendar } from 'react-icons/fc';
+import Clock from './Clock';
 import styles from './StatsCard.module.css';
 
 const Stats = () => {
   return (
     <div className={styles.card}>
-      <div className={styles.frame}>
-        <FaUser />
-      </div>
+      <Clock />
       <div className={styles.group}>
         <h3 className={styles.title}>Personal Best</h3>
         <div className={styles.dataGroup}>

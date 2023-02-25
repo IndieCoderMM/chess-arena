@@ -4,13 +4,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.25em 1em;
+  padding: 0.25em;
 }
 
 .menuBtn {
   background: none;
   border: none;
-  padding: 1em;
+  padding: 0.25em;
+}
+
+.menuBtn > svg {
+  font-size: 2rem;
+  color: #fff;
 }
 
 .btn {
@@ -18,9 +23,21 @@
   border: none;
   text-decoration: none;
   border-radius: 8px;
-  background-color: darkorange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
-  padding: 0.25em 0.5em;
+  padding: 0.5em;
+  font-size: 1.2em;
+  transition: all 0.1s;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:visited {
+  color: #fff;
 }
 
 .brand {

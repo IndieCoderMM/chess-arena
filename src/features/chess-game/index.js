@@ -73,7 +73,7 @@ ChessGame.defaultProps = {
   time: 10,
   flip: false,
   hideEval: false,
-  width: 400,
+  width: 300,
   white: {
     name: 'White',
     rating: 1500,

@@ -1,4 +1,9 @@
-.container {
-  background-color: #fff;
-  text-align: center;
+.name {
+  text-decoration: none;
+  color: var(--bs-blue);
+  transition: all 0.2s;
+}
+
+.name:hover {
+  color: var(--bs-cyan);
 }
