@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { Col, Container, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ChessGame from '../features/chess-game';
-import { InfoCard, Validator, StatsCard } from '../features/puzzle';
-import { updateCommand } from '../redux/board/boardSlice';
+import { InfoCard, StatsCard } from '../features/puzzle';
+import PuzzleValidator from '../features/engine/components/PuzzleValidator';
 import { getTodayPuzzle } from '../redux/chess/chessSlice';
-import styles from './Puzzle.module.css';
 
 const Puzzle = () => {
   const status = useSelector((state) => state.chess.puzzleStatus);
@@ -25,7 +24,9 @@ const Puzzle = () => {
         <Col className="p-1">
           <Stack gap={2}>
             <InfoCard />
-            <ChessGame hideEval />
+            <ChessGame
+              width={window.innerWidth < 500 ? window.innerWidth : 500}
+            />
           </Stack>
         </Col>
         <Col className="p-1">

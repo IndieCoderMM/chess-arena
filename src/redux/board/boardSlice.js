@@ -41,7 +41,6 @@ const boardSlice = createSlice({
       state.players = action.payload;
     },
     makeMove(state, action) {
-      state.command = 'move';
       state.moves.push(action.payload);
     },
   },

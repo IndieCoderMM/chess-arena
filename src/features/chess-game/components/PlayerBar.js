@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RiUser5Fill, RiUser5Line } from 'react-icons/ri';
 import styles from './PlayerBar.module.css';
 
-const PlayerBar = ({ color, state, time }) => {
+const PlayerBar = ({ color, time }) => {
   const fen = useSelector((state) => state.board.fen);
   const players = useSelector((state) => state.board.players);
   const status = useSelector((state) => state.board.status);
@@ -18,7 +18,9 @@ const PlayerBar = ({ color, state, time }) => {
       <div className="d-flex gap-1 align-items-start">
         <div
           className={styles.icon}
-          style={{ borderColor: turn === color && 'green' }}
+          style={{
+            borderColor: turn === color ? 'var(--bs-yellow)' : 'var(--bs-red)',
+          }}
         >
           {color === 'w' ? <RiUser5Fill /> : <RiUser5Line />}
         </div>

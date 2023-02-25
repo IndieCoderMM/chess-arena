@@ -33,7 +33,11 @@ const PlaySolo = () => {
     >
       <Row className="p-2">
         <Col>
-          <ChessGame showStatus orientation={flip ? 'black' : 'white'} />
+          <ChessGame
+            showStatus
+            orientation={flip ? 'black' : 'white'}
+            width={window.innerWidth < 500 ? window.innerWidth : 500}
+          />
         </Col>
         <Col className="p-3">
           <Stack gap={1}>

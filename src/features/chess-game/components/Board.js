@@ -8,7 +8,7 @@ import parseSquares, { convertMoveToSquare } from '../utils/parseSquares';
 import evaluateFen from '../utils/evaluateFen';
 import { updateCommand, updateBoard } from '../../../redux/board/boardSlice';
 
-function Board({ updateStatus, orientation, width }) {
+function Board({ orientation, width }) {
   const fen = useSelector((state) => state.board.fen);
   const moves = useSelector((state) => state.board.moves);
   const command = useSelector((state) => state.board.command);
@@ -17,8 +17,6 @@ function Board({ updateStatus, orientation, width }) {
   const [selected, setSelected] = useState('');
   const [moveFrom, setMoveFrom] = useState('');
   const [validMoves, setValidMoves] = useState([]);
-
-  if (fen !== 'start' && fen !== game.fen()) game.load(fen);
 
   useEffect(() => {
     if (command === 'reset') {
@@ -30,17 +28,21 @@ function Board({ updateStatus, orientation, width }) {
     } else if (command === 'undo') {
       const undo = game.undo();
       if (undo) {
-        const moves = game.history();
         setSelected('');
         if (moves.length) setMoveFrom(convertMoveToSquare(moves.at(-1)));
         else setMoveFrom('');
         setValidMoves([]);
-        dispatch(updateBoard({ fen: game.fen(), moves }));
+        dispatch(
+          updateBoard({
+            fen: game.fen(),
+            moves: moves.slice(0, moves.length - 1),
+          }),
+        );
       }
     }
 
     dispatch(updateCommand(''));
-  }, [command, moves, updateStatus, dispatch, game]);
+  }, [command]);
 
   const makeMove = ({ sourceSquare, targetSquare }) => {
     try {
@@ -59,7 +61,7 @@ function Board({ updateStatus, orientation, width }) {
       dispatch(
         updateBoard({
           fen: game.fen(),
-          moves: game.history(),
+          moves: [...moves, game.history().at(-1)],
           score,
           status,
         }),
@@ -70,6 +72,8 @@ function Board({ updateStatus, orientation, width }) {
   };
 
   const handleMove = (square) => {
+    if (fen !== 'start' && fen !== game.fen()) game.load(fen);
+
     if (validMoves.includes?.(square)) {
       makeMove({ sourceSquare: selected, targetSquare: square });
       setValidMoves([]);

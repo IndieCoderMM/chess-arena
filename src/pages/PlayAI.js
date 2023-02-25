@@ -16,12 +16,19 @@ const PlayAI = () => {
     <div className={styles.container}>
       <Row>
         <Col className="p-1">
-          <ChessGame white={white} black={black} showStatus />
+          <ChessGame
+            white={white}
+            black={black}
+            width={window.innerWidth < 500 ? window.innerWidth : 500}
+            showStatus
+            engine={-1}
+          />
         </Col>
         <Col className="p-3">
           <MoveDisplay />
         </Col>
       </Row>
+      {/* <RandomMover color="b" /> */}
     </div>
   );
 };
