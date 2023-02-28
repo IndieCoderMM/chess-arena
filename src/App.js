@@ -4,12 +4,12 @@ import MobileHeader from './components/MobileHeader.js';
 import Sidebar from './components/Sidebar.js';
 import Home from './pages/Home.js';
 import Leaderboard from './pages/Leaderboard.js';
-import Login from './pages/Login.js';
 import PlayAI from './pages/PlayAI.js';
 import PlayOnline from './pages/PlayOnline.js';
 import PlaySolo from './pages/PlaySolo.js';
 import Puzzle from './pages/Puzzle';
 import Practice from './pages/Practice.js';
+import { LoginForm, SignUpForm } from './features/auth/index.js';
 
 function App() {
   const [sidebarDisplay, setSidebarDisplay] = useState(window.innerWidth > 768);
@@ -27,7 +27,10 @@ function App() {
           <Route path="/practice/solo" element={<PlaySolo />} />
           <Route path="/puzzle" element={<Puzzle />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/account/">
+            <Route path="login" element={<LoginForm />} />
+            <Route path="signup" element={<SignUpForm />} />
+          </Route>
         </Routes>
       </div>
     </div>

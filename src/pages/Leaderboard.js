@@ -37,19 +37,20 @@ const Leaderboard = () => {
               <tr key={p.player_id} className="text-center">
                 <td>{p.rank}</td>
                 <td>
-                  <img src={p.avatar} width={40} alt={p.username} />
-                </td>
-                <td>
                   <a
-                    className={styles.name}
                     href={p.url}
                     target="_blank"
                     rel="noreferrer"
                     title="View Profile"
                   >
-                    {p.username}
+                    <img
+                      className={styles.avatar}
+                      src={p.avatar}
+                      alt={p.username}
+                    />
                   </a>
                 </td>
+                <td>{p.username}</td>
                 <td>
                   <Badge bg="success">{p.title}</Badge>
                 </td>

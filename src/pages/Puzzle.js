@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Col, Container, Row, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import ChessGame from '../features/chess-game';
+import ChessGame, { MoveDisplay } from '../features/chess-game';
 import { InfoCard, StatsCard } from '../features/puzzle';
 import PuzzleValidator from '../features/engine/components/PuzzleValidator';
 import { getTodayPuzzle } from '../redux/chess/chessSlice';
@@ -40,7 +40,10 @@ const Puzzle = () => {
           </Stack>
         </Col>
         <Col className="p-1">
-          <StatsCard />
+          <Stack gap={2}>
+            <StatsCard />
+            <MoveDisplay />
+          </Stack>
         </Col>
       </Row>
     </Container>

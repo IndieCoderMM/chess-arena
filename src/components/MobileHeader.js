@@ -32,7 +32,7 @@ const MobileHeader = ({ showSidebar }) => {
         </button>
       ) : (
         <Link
-          to="/login"
+          to="/account/login"
           className={styles.btn}
           style={{ backgroundColor: 'var(--bs-green)' }}
         >

@@ -1,0 +1,13 @@
+.btn {
+  padding: 0.5em;
+  border: none;
+  border-radius: 8px;
+}
+
+.activeBtn {
+  padding: 0.5em;
+  border: none;
+  border-radius: 8px;
+  background-color: blueviolet;
+  color: #fff;
+}

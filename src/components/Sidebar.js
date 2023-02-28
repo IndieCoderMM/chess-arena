@@ -85,7 +85,7 @@ const Sidebar = ({ show }) => {
             <span className={collapsed ? styles.hide : ''}>Log Out</span>
           </button>
         ) : (
-          <Link to="/login" className={styles.logBtn}>
+          <Link to="/account/login" className={styles.logBtn}>
             <BiLogIn />
             <span className={collapsed ? styles.hide : ''}>Log In</span>
           </Link>

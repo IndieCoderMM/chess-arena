@@ -1,22 +1,24 @@
 import React, { useRef } from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../../../firebase';
-import { Link, Navigate } from 'react-router-dom';
-import Toastr from '../../../components/Toastr';
 import { Button, Container, Form } from 'react-bootstrap';
+import { Link, Navigate } from 'react-router-dom';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import Toastr from '../../../components/Toastr';
 
-const SignUpForm = () => {
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+const LogInForm = () => {
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
   const emailRef = useRef();
   const pwRef = useRef();
 
-  const handleSignUp = (e) => {
+  const handleLogIn = (e) => {
     e.preventDefault();
     const email = emailRef.current.value.trim();
     const password = pwRef.current.value.trim();
+    console.log(email, password);
     if (email && password) {
-      createUserWithEmailAndPassword(email, password);
+      signInWithEmailAndPassword(email, password);
     }
   };
   console.log(user, loading, error);
@@ -31,11 +33,11 @@ const SignUpForm = () => {
         style={{ minHeight: '100vh', backgroundColor: 'var(--bs-blue)' }}
       >
         <Form
-          onSubmit={handleSignUp}
+          onSubmit={handleLogIn}
           className="bg-light d-flex flex-column w-75 gap-3 border rounded p-3"
           style={{ minWidth: '300px', maxWidth: '400px' }}
         >
-          <h2 className="text-center">Join Now</h2>
+          <h2 className="text-center">Log In</h2>
           <Form.Group controlId="Email">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -54,15 +56,10 @@ const SignUpForm = () => {
               required
             />
           </Form.Group>
-          <Form.Check
-            type="checkbox"
-            id="agree-terms"
-            label="Agree to Terms and Conditions"
-            required
-          />
-          <Button type="submit">Sign Up</Button>
+          <Form.Check type="checkbox" id="remember-me" label="Remember me" />
+          <Button type="submit">Log In</Button>
           <p className="text-center border-top pt-1">
-            Already a user? <Link to="/account/login">LOG IN</Link>
+            Need an account? <Link to="/account/signup">SIGN UP</Link>
           </p>
         </Form>
       </Container>
@@ -70,4 +67,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default LogInForm;
