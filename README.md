@@ -1,5 +1,9 @@
 <a name="readme-top"></a>
 
+[![last commit](https://custom-icon-badges.demolab.com/github/last-commit/indiecodermm/chess-arena?logo=history&logoColor=white&label=Update&color=%23673ab7)](https://github.com/IndieCoderMM/chess-arena/commits/)
+[![Stars](https://custom-icon-badges.demolab.com/github/stars/IndieCoderMM/chess-arena?logo=star&label=Stars)](https://github.com/IndieCoderMM/chess-arena/stargazers)
+
+
 ## 📑 Table of Contents
 - [♟ Chess Arena](#-chess-arena)
   - [🔥 Key Features](#-key-features)
